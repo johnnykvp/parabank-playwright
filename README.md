@@ -49,6 +49,11 @@ Maven dependency; if needed, install explicitly with:
 mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
 ```
 
+View screenshots through trace
+```bash
+mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="show-trace traces/validUserCanLogInAndSeeAccountsOverview().zip"
+```
+
 ## CI/CD
 Tests run automatically nightly via GitHub Actions, and on every push to
 `main`. Traces are uploaded as workflow artifacts on failure for debugging,
@@ -66,10 +71,3 @@ and Surefire test reports are uploaded on every run.
 - Add API-level tests against ParaBank's REST/SOAP services
 - Add bill pay and account-opening flow coverage
 - Add negative/boundary tests for transfer amounts (e.g., overdraft, zero, negative values)
-
-## Notes
-- View screenshots (traces)
-
-Local Example:
-
-mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="show-trace traces/validUserCanLogInAndSeeAccountsOverview.zip"

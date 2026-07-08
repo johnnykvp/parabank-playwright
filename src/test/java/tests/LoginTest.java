@@ -9,6 +9,7 @@ import pages.RegistrationPage;
 import utils.TestDataGenerator;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTest extends TestBase {
@@ -41,7 +42,7 @@ public class LoginTest extends TestBase {
     loginPage.login(username, password);
 
     assertThat(overviewPage.pageTitle()).hasText("Accounts Overview");
-    assertTrue(overviewPage.accountCount() > 0);
+    assertTrue(overviewPage.totalBalance().isVisible());
   }
 
   @Test
@@ -51,7 +52,7 @@ public class LoginTest extends TestBase {
     loginPage.goTo(BASE_URL);
     loginPage.login(username, "WrongPassword!");
 
-    assertTrue(loginPage.getErrorText().length() > 0);
+    assertFalse(loginPage.getErrorText().isEmpty());
   }
 
   @Test
@@ -61,6 +62,6 @@ public class LoginTest extends TestBase {
     loginPage.goTo(BASE_URL);
     loginPage.login("nonexistent_user_12345", password);
 
-    assertTrue(loginPage.getErrorText().length() > 0);
+    assertFalse(loginPage.getErrorText().isEmpty());
   }
 }

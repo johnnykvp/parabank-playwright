@@ -19,7 +19,8 @@ public class TransferFundsPage {
     this.fromAccountSelect = page.locator("#fromAccountId");
     this.toAccountSelect = page.locator("#toAccountId");
     this.transferButton = page.locator("input[value='Transfer']");
-    this.confirmationHeading = page.locator("h1.title");
+    // There are two title elements, one is hidden
+    this.confirmationHeading = page.locator("h1.title").locator("visible=true");
     this.confirmationAmount = page.locator("#amountResult");
   }
 

@@ -29,6 +29,7 @@ public class TransferFundsTest extends TestBase {
 
   @Test
   void transferBetweenOwnAccountsShowsConfirmation() {
+    page.getByText("Accounts Overview").click();
     AccountsOverviewPage overviewPage = new AccountsOverviewPage(page);
     String accountId = overviewPage.firstAccountId();
 
