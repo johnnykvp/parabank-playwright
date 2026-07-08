@@ -49,7 +49,7 @@ Maven dependency; if needed, install explicitly with:
 mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
 ```
 
-View screenshots through trace
+View screenshots through trace:
 ```bash
 mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="show-trace traces/validUserCanLogInAndSeeAccountsOverview().zip"
 ```
