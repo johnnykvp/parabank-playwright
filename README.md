@@ -1,27 +1,31 @@
 # Playwright Java Automation Framework — ParaBank
 
-End-to-end test automation suite built with Playwright for Java, JUnit 5, and
+End-to-end test automation suite built with Playwright for Java, JUnit, and
 Maven, targeting [ParaBank](https://parabank.parasoft.com), a public banking
 demo application. Uses the Page Object Model (POM) to separate test logic
 from page structure, mirroring the approach used professionally for
-financial-services test automation at JPMorgan Chase.
+accounting-services test automation at Expeditors.
 
 ## What this covers
 - **Registration**: new user signup with a dynamically generated username
 - **Login**: valid login, invalid password, unknown username
 - **Fund transfer**: transferring between accounts and verifying the
   confirmation screen
+- **API validation**: verifying the accounts REST endpoint directly —
+    response status, JSON structure, and consistency between what the UI
+    displays and what the API returns
+
 
 ## Why dynamic test data
 ParaBank's demo environment doesn't provide fixed, guaranteed login
 credentials — the underlying data resets periodically. Rather than hardcoding
 a username that may stop working, each test registers its own unique user at
-runtime (`TestDataGenerator.uniqueUsername`), which is a more realistic
-pattern for testing against a live, shared environment anyway.
+runtime (`TestDataGenerator.uniqueUsername`), which can be a more realistic
+pattern for testing against a live, shared environment.
 
 ## Tech stack
 - Playwright for Java
-- JUnit 5
+- JUnit
 - Maven
 - Page Object Model architecture
 - GitHub Actions for CI/CD (nightly scheduled runs + on push)
@@ -33,6 +37,7 @@ src/test/java/
   base/       # TestBase — browser/context lifecycle shared across tests
   pages/      # Page Object classes (LoginPage, RegistrationPage, AccountsOverviewPage, TransferFundsPage)
   tests/      # Test classes organized by feature
+  models/     # POJOs (Plain Old Java Objects) for deserializing API JSON responses (Account)
   utils/      # Test data generation helpers
 pom.xml
 .github/workflows/nightly.yml
@@ -68,6 +73,7 @@ and Surefire test reports are uploaded on every run.
   classes stay focused on test logic.
 
 ## Next steps / possible extensions
-- Add API-level tests against ParaBank's REST/SOAP services
+- Migrate fresh account registration methods in test classes to a single method in TestBase
 - Add bill pay and account-opening flow coverage
 - Add negative/boundary tests for transfer amounts (e.g., overdraft, zero, negative values)
+- Extend API validation to the transfer endpoint (POST) and assert balance changes match the transferred amount
